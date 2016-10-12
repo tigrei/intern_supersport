@@ -47,7 +47,7 @@ drupalvm_database: mysql
 
 # Set this to 'false' if you are using a different site deployment strategy and
 # would like to configure 'vagrant_synced_folders' and 'apache_vhosts' manually.
-build_makefile: true
+build_makefile: false
 drush_makefile_path: "{{ config_dir }}/drupal.make.yml"
 drush_make_options: "--no-gitinfofile"
 
