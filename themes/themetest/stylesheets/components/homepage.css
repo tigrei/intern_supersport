@@ -1,0 +1,44 @@
+/* line 1, ../../sass/components/homepage.scss */
+.node_teaser {
+  min-height: 130px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-bottom: 1px solid #dbdbdb;
+}
+/* line 6, ../../sass/components/homepage.scss */
+.node_teaser img {
+  float: left;
+  padding: 6px;
+}
+/* line 13, ../../sass/components/homepage.scss */
+.node_teaser .article .header .team a {
+  float: left;
+  font-weight: bold;
+  color: #5d9afc;
+  padding-right: 3px;
+}
+/* line 20, ../../sass/components/homepage.scss */
+.node_teaser .article .header .date {
+  float: left;
+  color: #727272;
+  padding-right: 3px;
+}
+/* line 26, ../../sass/components/homepage.scss */
+.node_teaser .article .header .author a {
+  float: left;
+  color: #727272;
+}
+/* line 33, ../../sass/components/homepage.scss */
+.node_teaser .article .title a {
+  margin-top: -5px;
+  font-size: 0.8em;
+  color: black;
+}
+/* line 37, ../../sass/components/homepage.scss */
+.node_teaser .article .title a:hover {
+  color: #4d4d4d;
+}
+/* line 42, ../../sass/components/homepage.scss */
+.node_teaser .article .body {
+  margin-top: -30px;
+}

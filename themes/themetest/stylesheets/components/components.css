@@ -1,0 +1,115 @@
+/* line 3, ../../sass/components/_breadcrumb.sass */
+.breadcrumb li {
+  list-style-type: none;
+  display: inline-block;
+}
+
+/* line 3, ../../sass/components/_navigation.sass */
+#navigation li {
+  list-style-type: none;
+  display: inline-block;
+}
+
+/* line 2, ../../sass/components/_site-name.sass */
+.site-name {
+  font-size: 2.2em;
+  line-height: 1.3em;
+  font-weight: 300;
+  padding: 0 0 0.5em;
+  margin: 0;
+}
+
+/* line 1, ../../sass/components/_pager.sass */
+.pager__item {
+  display: inline;
+}
+/* line 4, ../../sass/components/_pager.sass */
+.pager__item a {
+  display: inline-block;
+}
+
+/* line 2, ../../sass/components/_teams.scss */
+#block-views-block-teams-block-1 h2 {
+  margin: 10px;
+  color: #666666;
+}
+/* line 6, ../../sass/components/_teams.scss */
+#block-views-block-teams-block-1 .views-row {
+  background: white;
+  margin: 10px;
+}
+/* line 9, ../../sass/components/_teams.scss */
+#block-views-block-teams-block-1 .views-row img {
+  width: 90px;
+  height: 70px;
+  float: left;
+  border: 2px;
+  padding: 3px;
+}
+/* line 17, ../../sass/components/_teams.scss */
+#block-views-block-teams-block-1 .views-row .team_name a {
+  color: black;
+  font-size: 0.8em;
+}
+/* line 20, ../../sass/components/_teams.scss */
+#block-views-block-teams-block-1 .views-row .team_name a:hover {
+  color: #4d4d4d;
+}
+/* line 25, ../../sass/components/_teams.scss */
+#block-views-block-teams-block-1 .views-row .league {
+  color: #666666;
+  position: relative;
+  bottom: 17px;
+}
+/* line 30, ../../sass/components/_teams.scss */
+#block-views-block-teams-block-1 .views-row h6 {
+  position: relative;
+  bottom: 15px;
+  background: #f8f8f8;
+  margin: 3px;
+}
+
+/* line 1, ../../sass/components/homepage.scss */
+.node_teaser {
+  min-height: 130px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-bottom: 1px solid #dbdbdb;
+}
+/* line 6, ../../sass/components/homepage.scss */
+.node_teaser img {
+  float: left;
+  padding: 6px;
+}
+/* line 13, ../../sass/components/homepage.scss */
+.node_teaser .article .header .team a {
+  float: left;
+  font-weight: bold;
+  color: #5d9afc;
+  padding-right: 3px;
+}
+/* line 20, ../../sass/components/homepage.scss */
+.node_teaser .article .header .date {
+  float: left;
+  color: #727272;
+  padding-right: 3px;
+}
+/* line 26, ../../sass/components/homepage.scss */
+.node_teaser .article .header .author a {
+  float: left;
+  color: #727272;
+}
+/* line 33, ../../sass/components/homepage.scss */
+.node_teaser .article .title a {
+  margin-top: -5px;
+  font-size: 0.8em;
+  color: black;
+}
+/* line 37, ../../sass/components/homepage.scss */
+.node_teaser .article .title a:hover {
+  color: #4d4d4d;
+}
+/* line 42, ../../sass/components/homepage.scss */
+.node_teaser .article .body {
+  margin-top: -30px;
+}

@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * @file
+ * Preprocess functions for ThemeTest.
+ */
+
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Component\Utility\Unicode;
+
+/**
+ * Prepares variables for the html.html.twig template.
+ */
+function themetest_preprocess_html(&$variables) {
+  try {
+    $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+  }
+  catch (Exception $e) {
+    // If the database is not yet available, set default values for these
+    // variables.
+    $variables['is_front'] = FALSE;
+  }
+
+  // If we're on the front page.
+  if (!$variables['is_front']) {
+    // Add unique classes for each page and website section.
+    $path = \Drupal::service('path.current')->getPath();
+    $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path);
+    $alias = trim($alias, '/');
+    if (!empty($alias)) {
+      $name = str_replace('/', '-', $alias);
+      $variables['attributes']['class'][] = 'page-' . $name;
+      list($section,) = explode('/', $alias, 2);
+      if (!empty($section)) {
+        $variables['attributes']['class'][] = 'section-' . $section;
+      }
+    }
+  }
+
+  // Add cachability metadata.
+  $theme_name = \Drupal::theme()->getActiveTheme()->getName();
+  $theme_settings = \Drupal::config($theme_name . '.settings');
+  CacheableMetadata::createFromRenderArray($variables)
+    ->addCacheableDependency($theme_settings)
+    ->applyTo($variables);
+  // Union all theme setting variables to the html.html.twig template.
+  $variables += $theme_settings->getOriginal();
+}
+
+/**
+ * Prepares variables for the field.html.twig template.
+ */
+function themetest_preprocess_field(&$variables, $hook) {
+  // Make additional variables available to the template.
+  $variables['bundle'] = $variables['element']['#bundle'];
+}
+
+// deficiencies: does not display content if team is not tagged w/i a league w/i a sport,
+// is not orginized by sport or league (DO NEXT) is orgainized by Alpha
+// use joins to lessen overhead, include, tid
+
+// function themetest_preprocess_taxonomy_term__sports(&$variables) {
+//   $variables['isteam'] = false;
+// //  $name = $variables['term']->name->value;
+//   $tid = db_query("SELECT tid FROM {taxonomy_term_field_data} WHERE name = :name", [':name' => $variables['term']->name->value])->fetchField();
+//   $parent = db_query("SELECT parent from {taxonomy_term_hierarchy} WHERE tid = :tid", [':tid' => $tid])->fetchField();
+//   if ($parent == 0) // IS A SPORT
+//     return;
+//   else {
+//     $root = db_query("SELECT parent from {taxonomy_term_hierarchy} WHERE tid = :parent", [':parent' => $parent])->fetchField();
+//     if ($root == 0) // IS A LEAGUE
+//       return;
+//     else {  // IS A TEAM
+//       $variables['isteam'] = true;
+//       $variables['league'] = db_query("SELECT name FROM {taxonomy_term_field_data} WHERE tid = :parent", [':parent' => $parent])->fetchField();
+//       $options = ['absolute' => TRUE];
+//       $variables['leagueurl'] = \Drupal\Core\Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $parent], $options)->toString();
+//       //find most recent article    
+//       $nid = db_query("SELECT nid FROM {taxonomy_index} WHERE tid = :tid ORDER BY created desc", [':tid' => $tid])->fetchField();
+//       $article = db_query("SELECT title FROM {node_field_data} WHERE nid = :nid", [':nid' => $nid])->fetchField();
+//       if (empty($article)) {
+//         $variables['article'] = "No Recent Articles";
+//         $url = "";
+//       }
+//       else  {
+//         $variables['article'] = $article;
+//         $variables['articleurl'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $nid], $options)->toString();
+//       }
+//     }
+//   }
+// }
+
+function themetest_preprocess_taxonomy_term__sports(&$variables) {
+  return;
+  $variables['isteam'] = false;
+//  $name = $variables['term']->name->value;
+  $query = db_select('taxonomy_term_field_data','ttfd')
+    ->fields('ttfd',array('tid'))
+    ->condition('name',$variables['term']->name->value);
+  $query->join('taxonomy_term_hierarchy','tth','ttfd.tid = tth.tid');
+  $query
+    ->fields('tth',array('parent'));
+  $parent = $query->fetchField();
+  if ($parent == 0)  {// IS A SPORT
+    echo 'SPORT';
+    return;
+  }
+  else {
+    $root = db_query("SELECT parent from {taxonomy_term_hierarchy} WHERE tid = :parent", [':parent' => $parent])->fetchField();
+    if ($root == 0) // IS A LEAGUE
+      return;
+    else {  // IS A TEAM
+      $variables['isteam'] = true;
+      $variables['league'] = db_query("SELECT name FROM {taxonomy_term_field_data} WHERE tid = :parent", [':parent' => $parent])->fetchField();
+      $options = ['absolute' => TRUE];
+      $variables['leagueurl'] = \Drupal\Core\Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $parent], $options)->toString();
+      //find most recent article 
+      $nid = db_query("SELECT nid FROM {taxonomy_index} WHERE tid = :tid ORDER BY created desc", [':tid' => $tid])->fetchField();
+      $article = db_query("SELECT title FROM {node_field_data} WHERE nid = :nid", [':nid' => $nid])->fetchField();
+      if (empty($article)) {
+        $variables['article'] = "No Recent Articles";
+        $url = "";
+      }
+      else  {
+        $variables['article'] = $article;
+        $variables['articleurl'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $nid], $options)->toString();
+      }
+    }
+  }
+}
+
+// Takes first 250 char of body and adds '...' after
+function themetest_preprocess_node__sports_blog__teaser(&$variables) {
+  $teaser = Unicode::truncate(($variables['content']['body']['0']['#text']), 250, TRUE, TRUE);
+  $variables['teaser'] = $teaser;
+}
+/*
+function themetest_preprocess_taxonomy_term(&$variables) {
+  kint($variables);
+}
+*/

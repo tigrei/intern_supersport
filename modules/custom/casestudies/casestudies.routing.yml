@@ -1,0 +1,7 @@
+casestudies.form:
+  path: '/modules/casestudies'
+  defaults:
+    _title: 'Case Studies Form'
+    _form: '\Drupal\casestudies\Form\CaseStudiesForm'
+  requirements:
+    _permission: 'access content'

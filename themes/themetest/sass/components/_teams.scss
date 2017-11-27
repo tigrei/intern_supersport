@@ -1,0 +1,38 @@
+#block-views-block-teams-block-1 {
+	h2 {
+		margin: 10px;
+		color: #666666;
+	}
+	.views-row	{
+		background: white;
+		margin: 10px;
+		img {
+			width: 90px;
+			height: 70px;
+			float: left;
+			border: 2px;
+			padding: 3px;
+		}
+		.team_name	{
+			a	{
+				color: black;
+				font-size: 0.8em;
+				&:hover	{
+					color: #4d4d4d;
+				}
+			}
+		}
+		.league	{
+			color: #666666;
+			position: relative;
+			bottom: 17px;
+		}
+		h6	{
+			position: relative;
+			bottom: 15px;
+			background: #f8f8f8;
+			margin: 3px;
+		}
+	}
+}
+
